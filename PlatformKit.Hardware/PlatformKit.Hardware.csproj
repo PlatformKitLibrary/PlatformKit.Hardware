@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\PlatformKit\PlatformKit.csproj" />
+      <PackageReference Include="PlatformKit" Version="3.6.2" />
     </ItemGroup>
 
 </Project>
