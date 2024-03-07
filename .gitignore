@@ -398,3 +398,4 @@ FodyWeavers.xsd
 *.sln.iml
 .idea/.idea.PlatformKit.Hardware/.idea/aws.xml
 .idea/.idea.PlatformKit.Hardware/.idea/indexLayout.xml
+.idea/.idea.PlatformKit.Hardware/.idea/vcs.xml
