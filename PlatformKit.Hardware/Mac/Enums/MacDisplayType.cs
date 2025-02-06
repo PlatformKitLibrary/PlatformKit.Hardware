@@ -8,19 +8,20 @@
       file, You can obtain one at http://mozilla.org/MPL/2.0/.
    */
 
-namespace PlatformKit.Hardware.Mac;
-
-/// <summary>
-/// 
-/// </summary>
-public enum MacDisplayType
+namespace PlatformKit.Hardware.Mac
 {
-    None,
-    NonRetina,
-    Retina,
-    // ReSharper disable once InconsistentNaming
     /// <summary>
-    /// Found on 2021 14" and 16" MacBook Pros and later.
+    /// 
     /// </summary>
-    LiquidRetinaXDR,
+    public enum MacDisplayType
+    {
+        None,
+        NonRetina,
+        Retina,
+        // ReSharper disable once InconsistentNaming
+        /// <summary>
+        /// Found on 2021 14" and 16" MacBook Pros and later.
+        /// </summary>
+        LiquidRetinaXDR,
+    }
 }

@@ -8,89 +8,94 @@
       file, You can obtain one at http://mozilla.org/MPL/2.0/.
    */
 
+using System.Runtime.Versioning;
 using PlatformKit.Mac;
 
-namespace PlatformKit.Hardware.Mac;
-
-/// <summary>
-/// A class to represent Mac models
-/// </summary>
-public class MacModel
+namespace PlatformKit.Hardware.Mac
 {
-    
-    public MacHardwareModel HardwareModel { get; set; }
-    
-    public ReleaseYearTimeframe ReleaseTimeFrame { get; set; }
-    public ReleaseYearModel ReleaseYear { get; }
-
-    public MacDeviceFamily DeviceFamily
+    /// <summary>
+    /// A class to represent Mac models
+    /// </summary>
+    public class MacModel
     {
-        get
-        {
-            MacDeviceFamily macDeviceFamily;
-            
-            var hardware = new MacHardwareModel();
-            hardware.Detect();
+    
+        public MacHardwareModel HardwareModel { get; set; }
+    
+        public ReleaseYearTimeframe ReleaseTimeFrame { get; set; }
+        public ReleaseYearModel ReleaseYear { get; }
 
-            switch (hardware.MacDescription.ToLower().Replace(" ", String.Empty))
+#if NET5_0_OR_GREATER
+        [SupportedOSPlatform("macos")]
+#endif
+        public MacDeviceFamily DeviceFamily
+        {
+            get
             {
-                case "macbookair":
-                    macDeviceFamily = MacDeviceFamily.MacBookAir;
-                    break;
-                case "macbookpro":
-                    macDeviceFamily = MacDeviceFamily.MacBookPro;
-                    break;
-                case "macbook":
-                    macDeviceFamily = MacDeviceFamily.MacBook;
-                    break;
-                case "macmini":
-                    macDeviceFamily = MacDeviceFamily.MacMini;
-                    break;
-                case "macstudio":
-                    macDeviceFamily = MacDeviceFamily.MacStudio;
-                    break;
-                case "macpro":
-                    macDeviceFamily = MacDeviceFamily.MacPro;
-                    break;
-                case "imacpro":
-                    macDeviceFamily = MacDeviceFamily.iMacPro;
-                    break;
-                case "imac":
-                    macDeviceFamily = MacDeviceFamily.iMac;
-                    break;
-                case "macminiserver":
-                    macDeviceFamily = MacDeviceFamily.MacMiniServer;
-                    break;
-                default:
-                    macDeviceFamily = MacDeviceFamily.NotDetected;
-                    break;
+                MacDeviceFamily macDeviceFamily;
+            
+                var hardware = new MacHardwareModel();
+                hardware.Detect();
+
+                switch (hardware.MacDescription.ToLower().Replace(" ", string.Empty))
+                {
+                    case "macbookair":
+                        macDeviceFamily = MacDeviceFamily.MacBookAir;
+                        break;
+                    case "macbookpro":
+                        macDeviceFamily = MacDeviceFamily.MacBookPro;
+                        break;
+                    case "macbook":
+                        macDeviceFamily = MacDeviceFamily.MacBook;
+                        break;
+                    case "macmini":
+                        macDeviceFamily = MacDeviceFamily.MacMini;
+                        break;
+                    case "macstudio":
+                        macDeviceFamily = MacDeviceFamily.MacStudio;
+                        break;
+                    case "macpro":
+                        macDeviceFamily = MacDeviceFamily.MacPro;
+                        break;
+                    case "imacpro":
+                        macDeviceFamily = MacDeviceFamily.iMacPro;
+                        break;
+                    case "imac":
+                        macDeviceFamily = MacDeviceFamily.iMac;
+                        break;
+                    case "macminiserver":
+                        macDeviceFamily = MacDeviceFamily.MacMiniServer;
+                        break;
+                    default:
+                        macDeviceFamily = MacDeviceFamily.NotDetected;
+                        break;
+                }
+
+                return macDeviceFamily;
             }
-
-            return macDeviceFamily;
         }
-    }
 
-    public string MacIdentifier 
-    {
-        get
+        public string MacIdentifier 
         {
-            return macOsAnalyzer.GetMacSystemProfilerInformation(MacSystemProfilerDataType.HardwareDataType, "Model Identifier");
+            get
+            {
+                return MacOsAnalyzer.GetMacSystemProfilerInformation(MacSystemProfilerDataType.HardwareDataType, "Model Identifier");
+            }
         }
-    }
     
-    public MacOsSystemInformation InstalledOperatingSystem 
-    {
-        get
+        public MacOsSystemInformationModel InstalledOperatingSystem 
         {
-            return new MacOsSystemInformation();
+            get
+            {
+                return new MacOsSystemInformationModel();
+            }
         }
-    }
 
 
-    protected MacOSAnalyzer macOsAnalyzer;
+        protected MacOsAnalyzer macOsAnalyzer;
     
-    public MacModel()
-    {
-        macOsAnalyzer = new MacOSAnalyzer();
+        public MacModel()
+        {
+            macOsAnalyzer = new MacOsAnalyzer();
+        }
     }
 }

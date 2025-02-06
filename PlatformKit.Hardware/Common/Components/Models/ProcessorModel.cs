@@ -8,6 +8,9 @@
       file, You can obtain one at http://mozilla.org/MPL/2.0/.
    */
 
+using System.Runtime.Versioning;
+using PlatformKit.Windows;
+
 namespace PlatformKit.Hardware.Components{
     /// <summary>
     /// A class to store Processor Information.
@@ -45,28 +48,31 @@ namespace PlatformKit.Hardware.Components{
         
         public int CoreCount { get; set; }
         public int ThreadCount { get; set; }
-
+        
+#if NET5_0_OR_GREATER
+        [SupportedOSPlatform("windows")]        
+#endif
         protected override void DetectWindows()
         {
-            ProcessorName = _windowsAnalyzer.GetWMIValue("Name", "Win32_Processor");
-            CoreCount = int.Parse(_windowsAnalyzer.GetWMIValue("NumberOfCores", "Win32_Processor"));
-            ThreadCount = int.Parse(_windowsAnalyzer.GetWMIValue("ThreadCount", "Win32_Processor"));
+            ProcessorName = WMISearcher.GetWMIValue("Name", "Win32_Processor");
+            CoreCount = int.Parse(WMISearcher.GetWMIValue("NumberOfCores", "Win32_Processor"));
+            ThreadCount = int.Parse(WMISearcher.GetWMIValue("ThreadCount", "Win32_Processor"));
             //processorModel Nominal clockspeed
 
-            BoostClockSpeedMHz = int.Parse(_windowsAnalyzer.GetWMIValue("MaxClockSpeed", "Win32_Processor"));
+            BoostClockSpeedMHz = int.Parse(WMISearcher.GetWMIValue("MaxClockSpeed", "Win32_Processor"));
 
-            ArchitectureName = _windowsAnalyzer.GetWMIValue("Architecture", "Win32_Processor");
-            CPUFamily = _windowsAnalyzer.GetWMIValue("Family", "Win32_Processor");
-            ProcessorFamilyDescription = _windowsAnalyzer.GetWMIValue("OtherFamilyDescription", "Win32_Processor");
+            ArchitectureName = WMISearcher.GetWMIValue("Architecture", "Win32_Processor");
+            CPUFamily = WMISearcher.GetWMIValue("Family", "Win32_Processor");
+            ProcessorFamilyDescription = WMISearcher.GetWMIValue("OtherFamilyDescription", "Win32_Processor");
 
-            L2CacheSizeKB = int.Parse(_windowsAnalyzer.GetWMIValue("L2CacheSize", "Win32_Processor"));
-            L3CacheSizeMB = int.Parse(_windowsAnalyzer.GetWMIValue("L3CacheSize", "Win32_Processor")) / 1024;
+            L2CacheSizeKB = int.Parse(WMISearcher.GetWMIValue("L2CacheSize", "Win32_Processor"));
+            L3CacheSizeMB = int.Parse(WMISearcher.GetWMIValue("L3CacheSize", "Win32_Processor")) / 1024;
 
-            Socket = _windowsAnalyzer.GetWMIValue("SocketDesignation", "Win32_Processor");
-            Revision = _windowsAnalyzer.GetWMIValue("Revision", "Win32_Processor");
+            Socket = WMISearcher.GetWMIValue("SocketDesignation", "Win32_Processor");
+            Revision = WMISearcher.GetWMIValue("Revision", "Win32_Processor");
 
             SupportsVirtualization =
-                bool.Parse(_windowsAnalyzer.GetWMIValue("VirtualizationFirmwareEnabled", "Win32_Processor"));
+                bool.Parse(WMISearcher.GetWMIValue("VirtualizationFirmwareEnabled", "Win32_Processor"));
 
         }
     }

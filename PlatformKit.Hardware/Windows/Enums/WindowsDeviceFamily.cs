@@ -8,24 +8,25 @@
       file, You can obtain one at http://mozilla.org/MPL/2.0/.
    */
 
-namespace PlatformKit.Hardware.Windows;
-
-/// <summary>
-/// 
-/// </summary>
-public enum WindowsDeviceFamily
+namespace PlatformKit.Hardware.Windows
 {
     /// <summary>
-    /// Windows 10 or 11 [Home,Pro,Education,Enterprise,LTSC,Server]
+    /// 
     /// </summary>
-    Desktop,
-    /// <summary>
-    /// Windows 10 or 11 based Xbox OS.
-    /// </summary>
-    Xbox,
-    HoloLens,
-    /// <summary>
-    /// Windows 10 or 11 Teams OS.
-    /// </summary>
-    SurfaceHub,
+    public enum WindowsDeviceFamily
+    {
+        /// <summary>
+        /// Windows 10 or 11 [Home,Pro,Education,Enterprise,LTSC,Server]
+        /// </summary>
+        Desktop,
+        /// <summary>
+        /// Windows 10 or 11 based Xbox OS.
+        /// </summary>
+        Xbox,
+        HoloLens,
+        /// <summary>
+        /// Windows 10 or 11 Teams OS.
+        /// </summary>
+        SurfaceHub,
+    }
 }

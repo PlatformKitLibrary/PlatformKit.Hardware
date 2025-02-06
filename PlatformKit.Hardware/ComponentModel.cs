@@ -8,20 +8,28 @@
       file, You can obtain one at http://mozilla.org/MPL/2.0/.
    */
 
+using System;
 using PlatformKit.Mac;
 using PlatformKit.Windows;
+
+#if NETSTANDARD2_0 || NETSTANDARD2_1
+using OperatingSystem = Polyfills.OperatingSystemPolyfill;
+#endif
 
 namespace PlatformKit.Hardware
 {
     public abstract class ComponentModel : ManufactureInformation
     {
         protected WindowsAnalyzer _windowsAnalyzer;
-        protected MacOSAnalyzer _macOsAnalyzer;
+        protected MacOsAnalyzer _macOsAnalyzer;
+        
+        protected WMISearcher _wmiSearcher;
 
         public ComponentModel()
         {
             _windowsAnalyzer = new WindowsAnalyzer();
-            _macOsAnalyzer = new MacOSAnalyzer();
+            _macOsAnalyzer = new MacOsAnalyzer();
+            _wmiSearcher = new WMISearcher();
         }
         
         public bool CanDetectInformation { get; set; }
@@ -43,15 +51,15 @@ namespace PlatformKit.Hardware
 
         public void Detect()
         {
-            if (OSAnalyzer.IsWindows())
+            if (OperatingSystem.IsWindows())
             {
                 DetectWindows();
             }
-            else if (OSAnalyzer.IsMac())
+            else if (OperatingSystem.IsMacOS())
             {
                  DetectMac();
             }
-            else if (OSAnalyzer.IsLinux())
+            else if (OperatingSystem.IsLinux())
             {
                  DetectLinux();
             }

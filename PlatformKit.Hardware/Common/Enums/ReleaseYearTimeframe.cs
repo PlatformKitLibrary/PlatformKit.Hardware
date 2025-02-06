@@ -9,15 +9,16 @@
     */
 
 // ReSharper disable once CheckNamespace
-namespace PlatformKit.Hardware;
-
-/// <summary>
-/// 
-/// </summary>
-public enum ReleaseYearTimeframe
+namespace PlatformKit.Hardware
 {
-    Early,
-    Mid,
-    Late,
-    NotApplicable
+    /// <summary>
+    /// 
+    /// </summary>
+    public enum ReleaseYearTimeframe
+    {
+        Early,
+        Mid,
+        Late,
+        NotApplicable
+    }
 }

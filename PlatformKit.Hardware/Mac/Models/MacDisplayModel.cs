@@ -10,12 +10,13 @@
 
 using PlatformKit.Hardware.Components;
 
-namespace PlatformKit.Hardware.Mac;
-
-/// <summary>
-/// 
-/// </summary>
-public class MacDisplayModel : DisplayModel
+namespace PlatformKit.Hardware.Mac
 {
-    public MacDisplayType MacDisplayType { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public class MacDisplayModel : DisplayModel
+    {
+        public MacDisplayType MacDisplayType { get; set; }
+    }
 }

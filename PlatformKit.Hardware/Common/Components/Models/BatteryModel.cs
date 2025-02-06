@@ -8,6 +8,9 @@
       file, You can obtain one at http://mozilla.org/MPL/2.0/.
    */
 
+using System.Runtime.Versioning;
+using PlatformKit.Windows;
+
 namespace PlatformKit.Hardware.Components{
     /// <summary>
     /// 
@@ -32,15 +35,18 @@ namespace PlatformKit.Hardware.Components{
         
         public string Status { get; set; }
 
+#if NET5_0_OR_GREATER
+        [SupportedOSPlatform("windows")]
+ #endif
         protected override void DetectWindows()
         {
-            ExpectedBatteryLife = _windowsAnalyzer.GetWMIValue("ExpectedBatteryLife", "Win32_Battery");
-            FullCapacityCharge = _windowsAnalyzer.GetWMIValue("FullChargeCapacity", "Win32_Battery");
-            EstimatedRunTime = _windowsAnalyzer.GetWMIValue("EstimatedRunTime", "Win32_Battery");
-            TimeToFullCharge = _windowsAnalyzer.GetWMIValue("TimeToFullCharge", "Win32_Battery");
-            MaxRechargeTime = _windowsAnalyzer.GetWMIValue("MaxRechargeTime", "Win32_Battery");
-            Status = _windowsAnalyzer.GetWMIValue("Status", "Win32_Battery");
-            Name = _windowsAnalyzer.GetWMIValue("Name", "Win32_Battery");
+            ExpectedBatteryLife = WMISearcher.GetWMIValue("ExpectedBatteryLife", "Win32_Battery");
+            FullCapacityCharge = WMISearcher.GetWMIValue("FullChargeCapacity", "Win32_Battery");
+            EstimatedRunTime = WMISearcher.GetWMIValue("EstimatedRunTime", "Win32_Battery");
+            TimeToFullCharge = WMISearcher.GetWMIValue("TimeToFullCharge", "Win32_Battery");
+            MaxRechargeTime = WMISearcher.GetWMIValue("MaxRechargeTime", "Win32_Battery");
+            Status = WMISearcher.GetWMIValue("Status", "Win32_Battery");
+            Name = WMISearcher.GetWMIValue("Name", "Win32_Battery");
         }
     }
 }

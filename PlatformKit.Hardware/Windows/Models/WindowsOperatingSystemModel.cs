@@ -10,18 +10,19 @@
 
 using PlatformKit.Windows;
 
-namespace PlatformKit.Hardware.Windows;
-
-public class WindowsOperatingSystemModel : AbstractOperatingSystemModel
+namespace PlatformKit.Hardware.Windows
 {
-    public new bool IsProprietary => true;
+    public class WindowsOperatingSystemModel : AbstractOperatingSystemModel
+    {
+        public new bool IsProprietary => true;
 
-    public WindowsEdition Edition { get; set; }
-    public WindowsVersion Version { get; set; }
+        public WindowsEdition Edition { get; set; }
+        public WindowsVersion Version { get; set; }
     
-    public string ReleaseName { get; set; }
+        public string ReleaseName { get; set; }
     
-    public string ReleaseChannel { get; set; }
-    public int BuildNumber { get; set; }
-    public string ProductId { get; set; }
+        public string ReleaseChannel { get; set; }
+        public int BuildNumber { get; set; }
+        public string ProductId { get; set; }
+    }
 }

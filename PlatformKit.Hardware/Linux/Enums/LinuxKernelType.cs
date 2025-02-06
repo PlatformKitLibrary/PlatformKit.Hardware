@@ -8,12 +8,13 @@
       file, You can obtain one at http://mozilla.org/MPL/2.0/.
    */  
 
-namespace PlatformKit.Hardware.Linux;
-
-public enum LinuxKernelType
+namespace PlatformKit.Hardware.Linux
 {
-    Mainline,
-    NonMainline,
-    NonMainlineModified,
-    Custom
+    public enum LinuxKernelType
+    {
+        Mainline,
+        NonMainline,
+        NonMainlineModified,
+        Custom
+    }
 }

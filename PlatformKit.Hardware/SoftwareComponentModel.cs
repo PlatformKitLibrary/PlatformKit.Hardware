@@ -9,6 +9,8 @@
    */
 
 
+using System;
+
 namespace PlatformKit.Hardware{
     /// <summary>
     /// A class to help store software component information.

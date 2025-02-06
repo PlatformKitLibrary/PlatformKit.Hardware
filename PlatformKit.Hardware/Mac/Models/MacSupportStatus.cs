@@ -10,13 +10,14 @@
 
 using PlatformKit.Mac;
 
-namespace PlatformKit.Hardware.Mac;
-
-public class MacSupportStatus
+namespace PlatformKit.Hardware.Mac
 {
-    public bool IsOfficiallySupported { get; set; }
+    public class MacSupportStatus
+    {
+        public bool IsOfficiallySupported { get; set; }
     
-    public MacOsSystemInformation MinimumSupportedVersion { get; set; }
+        public MacOsSystemInformationModel MinimumSupportedVersion { get; set; }
     
-    public MacOsSystemInformation LastOfficiallySupportedVersion { get; set; }
+        public MacOsSystemInformationModel LastOfficiallySupportedVersion { get; set; }
+    }
 }

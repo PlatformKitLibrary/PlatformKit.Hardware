@@ -8,6 +8,9 @@
       file, You can obtain one at http://mozilla.org/MPL/2.0/.
    */
 
+using System.Runtime.Versioning;
+using PlatformKit.Windows;
+
 namespace PlatformKit.Hardware.Components{
 
     /// <summary>
@@ -38,9 +41,12 @@ namespace PlatformKit.Hardware.Components{
         public int MinVoltageMillivolts { get; set; }
         public int MaxVoltageMillivolts { get; set; }
 
+#if NET5_0_OR_GREATER
+        [SupportedOSPlatform("windows")]        
+#endif
         protected override void DetectWindows()
         {
-            var windowsSystemInfo = _windowsAnalyzer.GetWindowsSystemInformation();
+            var windowsSystemInfo = WindowsAnalyzer.GetWindowsSystemInformation();
             
             TotalPhysicalRamMB = windowsSystemInfo.TotalPhysicalMemoryMB;
             AvailablePhysicalRamMB = windowsSystemInfo.AvailablePhysicalMemoryMB;
@@ -48,9 +54,9 @@ namespace PlatformKit.Hardware.Components{
             TotalVirtualRamMB = windowsSystemInfo.VirtualMemoryMaxSizeMB;
             
             //Get all other MemoryModel values from WMI
-            MinVoltageMillivolts = int.Parse(_windowsAnalyzer.GetWMIValue("MinVoltage", "Win32_PhysicalMemory"));
-            MaxVoltageMillivolts = int.Parse(_windowsAnalyzer.GetWMIValue("MaxVoltage", "Win32_PhysicalMemory"));
-            MemorySpeedMHz = int.Parse(_windowsAnalyzer.GetWMIValue("ConfiguredClockSpeed", "Win32_PhysicalMemory"));
+            MinVoltageMillivolts = int.Parse(WMISearcher.GetWMIValue("MinVoltage", "Win32_PhysicalMemory"));
+            MaxVoltageMillivolts = int.Parse(WMISearcher.GetWMIValue("MaxVoltage", "Win32_PhysicalMemory"));
+            MemorySpeedMHz = int.Parse(WMISearcher.GetWMIValue("ConfiguredClockSpeed", "Win32_PhysicalMemory"));
         }
     }
 }
